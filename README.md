@@ -12,7 +12,7 @@ Esta APP Web esta desarrollada con el objetivo de poner a prueba los conocimient
 
 ### Referencia
 ```
-Revisa la aplicaion en https://ram-app-1cd9a.web.app/
+Aplicación almacenada en [Firebase](https://ram-app-1cd9a.web.app/).
 ```
 
 ### Desarrollador

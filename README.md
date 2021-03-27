@@ -22,9 +22,5 @@ Aplicación almacenada en Firebase.
 ```
 
 ### Desarrollador
-```
-````
 Jonathan Geraldo
             by TripioDesign
-````
-```

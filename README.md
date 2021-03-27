@@ -1,4 +1,4 @@
-# APP Web basada en Rick & Morty API
+# APP Rick & Morty by API
 
 ## Frameworks y librerias
 ```
@@ -18,13 +18,13 @@ ideas para complementar mis trabajos.
 ### Referencia
 ```
 Aplicación almacenada en Firebase.
-    *https://ram-app-1cd9a.web.app/
+    • https://ram-app-1cd9a.web.app/
 ```
 
 ### Desarrollador
 ```
-npm run lint
+````
+Jonathan Geraldo
+            by TripioDesign
+````
 ```
-
-<!-- ### Customize configuration -->
-<!-- See [Configuration Reference](https://cli.vuejs.org/config/). -->

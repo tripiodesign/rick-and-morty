@@ -2,7 +2,7 @@
 
 ## Frameworks y librerias
 ```
-VueJs Cli 2 | BootstrapVue | Vue page transition | Vue Typed Js
+Vue Cli 2 | BootstrapVue | Vue page transition | Vue Typed Js
 ```
 
 ### Objetivo
@@ -24,5 +24,5 @@ Aplicación almacenada en Firebase.
 #### Desarrollador
 ```
 Jonathan Geraldo
-            by TripioDesign
+           by TripioDesign
 ```

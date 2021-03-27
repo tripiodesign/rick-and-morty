@@ -17,8 +17,8 @@ ideas para complementar mis trabajos.
 
 ### Referencia
 ```
-Aplicación almacenada en *Firebase*.
-    * https://ram-app-1cd9a.web.app/
+Aplicación almacenada en Firebase.
+    *https://ram-app-1cd9a.web.app/
 ```
 
 ### Desarrollador

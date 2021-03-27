@@ -7,7 +7,11 @@ VueJs Cli 2 | BootstrapVue | Vue page transition | Vue Typed Js
 
 ### Objetivo
 ```
-Esta APP Web esta desarrollada con el objetivo de poner a prueba los conocimientos adquiridos durante mi formación y aprendizaje del desarrollo web front-end. Esta APP fue creada para poder seguir aprendiendo a desarrollar, asi como también obtener ideas para complementar mis trabajos.
+Esta APP Web esta desarrollada con el objetivo de poner a prueba los conocimientos adquiridos 
+```
+durante mi formación y aprendizaje del desarrollo web front-end. Esta APP fue creada para poder
+```
+ seguir aprendiendo a desarrollar, asi como también obtener ideas para complementar mis trabajos.
 ```
 
 ### Referencia

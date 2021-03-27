@@ -1,8 +1,9 @@
-# app-rick-and-morty
+# App basada en Rick & Morty API
 
-## Project setup
+## Frameworks y librerias
 ```
-npm install
+. VueJs Cli 2 | BootstrapVue
+.. Vue page transition | Vue Typed Js
 ```
 
 ### Compiles and hot-reloads for development

@@ -39,6 +39,15 @@ const routes = [
     name: "Episodio",
     component: () => import("../views/EpiDetail.vue"),
   },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("../views/404.vue")
+  },
+  {
+    path: "/:catchaAll(.*)",
+    redirect: "/404"
+  }
 ];
 
 const router = new VueRouter({

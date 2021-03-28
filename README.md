@@ -16,7 +16,8 @@ Vue Cli 2 | BootstrapVue | Vue page transition | Vue Typed Js
 
 ### Referencia
 ```
-Aplicación almacenada en <a src="https://ram-app-1cd9a.web.app">Firebase</a>.
+Aplicación almacenada en:
+           • Firebase [https://ram-app-1cd9a.web.app]
 ```
 
 #### Desarrollador

@@ -1,7 +1,6 @@
 <template>
   <div id="home" class="" style="background-color: #e9ecef">
-    <div
-      v-if="$store.state.carga == true"
+    <div v-if="$store.state.carga == true"
       style="height: 100vh; width: 100vw; z-index: 12000"
       class="bg-dark d-flex justify-content-center align-items-center position-fixed"
     >
@@ -97,19 +96,22 @@
           <br />
           <div class="d-sm-flex justify-content-around">
             <b-button
-              class="bg-success my-3 d-block mx-auto mx-sm-1"
+              variant="outline-success"
+              class=" my-3 d-block mx-auto mx-sm-1"
               style="width: 300px; max-width: 100%"
               :to="{ name: 'Personajes' }"
               >GO Personajes</b-button
             >
             <b-button
-              class="bg-success my-3 d-block mx-auto mx-sm-1"
+              variant="outline-success"
+              class=" my-3 d-block mx-auto mx-sm-1"
               style="width: 300px; max-width: 100%"
               :to="{ name: 'Ubicaciones' }"
               >GO Ubicaciones</b-button
             >
             <b-button
-              class="bg-success my-3 d-block mx-auto mx-sm-1"
+              variant="outline-success"
+              class=" my-3 d-block mx-auto mx-sm-1"
               style="width: 300px; max-width: 100%"
               :to="{ name: 'Episodios' }"
               >GO Episodios</b-button
@@ -117,6 +119,50 @@
           </div>
         </b-jumbotron>
       </div>
+      <a target="_blank" href="https://iconos8.es/icons/set/gambia-emoji">Gambia icon</a> icono de <a target="_blank" href="https://iconos8.es">Icons8</a>
+        <br>
+<!-- formulario crear usuario -->
+      <b-form @submit="createUser" class="w-75 mx-auto">
+        <h5>Crea tu cuenta</h5>
+        <b-input-group 
+        prepend=""
+        v-model="usuario.nombre"
+        class="my-2">
+          <b-form-input 
+          class="p-2"
+          placeholder="Nombre"></b-form-input>
+        </b-input-group>
+
+        <b-input-group 
+        prepend=""
+        v-model="usuario.apellido"
+        class="my-2">
+          <b-form-input 
+          class="p-2"
+          placeholder="Apellido"></b-form-input>
+        </b-input-group>
+
+        <b-input-group 
+        prepend=""
+        v-model="usuario.correo"
+        class="my-2">
+          <b-form-input 
+          class="p-2"
+          placeholder="Correo"></b-form-input>
+        </b-input-group>
+
+        <b-input-group 
+        prepend=""
+        v-model="usuario.pass"
+        class="my-2">
+          <b-form-input 
+          class="p-2"
+          placeholder="* * * * * *"></b-form-input>
+        </b-input-group>
+
+      <b-button type="submit" variant="success" pill class="mx-auto d-block w-75">Crear cuenta</b-button>
+      </b-form>
+        <br>
       <div>
         <b-jumbotron
           class="rounded-0 py-0 pt-4"
@@ -135,11 +181,22 @@
 </template>
 
 <script>
+import firebase from "firebase";
+import "@/firebase/init";
 export default {
   name: "Home",
   components: {},
   data() {
-    return {};
+    return {
+      usuario:{
+        uid: firebase.auth().currentUser ? firebase.auth().currentUser.uid : '',
+        nombre: '',
+        apellido: '',
+        correo: firebase.auth().currentUser ? firebase.auth().currentUser.email : '',
+        pass: '',
+      },
+      database: null,
+    };
   },
   methods: {
     load() {
@@ -148,12 +205,15 @@ export default {
         this.$store.state.carga = false;
       }, 1000);
     },
+
+    createUser(){
+      
+    }
   },
   mounted() {
     this.load();
-    console.log(this.$store.state.personajes);
   },
-};
+}
 </script>
 
 <style></style>

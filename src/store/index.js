@@ -1,33 +1,67 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import Data from "../servicios/ramapi"
+// import { database } from "../firebase/init"
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     carga: false,
     api: "",
+
     personajes: [],
     episodios: [],
     ubicaciones: [],
+
     window: {
       width: 0,
       height: 0,
     },
+    
+    usuarios: [],
   },
   getters: {
-    // getPjs(state){
-    //   let data = new Data();
-    //   data()
-    // }
+    // dbCreate(state) {
+    //   database.ref("database")
+    // },
   },
   actions: {
-    // setPjsAct(context, psersonaje){
-    //   return setPjsAct(personajes)
-    //         .then(data=>{
-    //           context('setPjs', {personajes, data});
-    //         })
-    // }
+    formatDate(date, tipo) {
+      if (date && tipo == "int") {
+        return (
+          "" +
+          date.getFullYear() +
+          (date.getMonth() + 1 > 9 ? "" : "0") +
+          (date.getMonth() + 1) +
+          (date.getDate() > 9 ? "" : "0") +
+          date.getDate() +
+          (date.getHours() > 9 ? date.getHours() : "0" + date.getHours()) +
+          (date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes())
+        );
+      } else {
+        return (
+          "" +
+          (date.getDate() > 9 ? "" : "0") +
+          date.getDate() +
+          "-" +
+          (date.getMonth() + 1 > 9 ? "" : "0") +
+          (date.getMonth() + 1) +
+          "-" +
+          date.getFullYear() +
+          " " +
+          (date.getHours() > 9
+            ? date.getHours()
+            : "0" + date.getHours().toString()) +
+          ":" +
+          (date.getMinutes() > 9
+            ? date.getMinutes()
+            : "0" + date.getMinutes().toString())
+        );
+      }
+    },
+    descendente(a, b) {
+      return b.fechaInt - a.fechaInt;
+    },
   },
   mutations: {
     // setPjs(state, {personajes, data}){

@@ -143,8 +143,6 @@
                 style="max-height: 800px"
               >
                 <b-list-group
-                  v-for="(episodio, i) in episodios[index].capitulos[0]"
-                  :key="i"
                   class="my-2"
                 >
                   <!-- <li><a class="text-success" :href="personaje.episode[i]">Capitulo {{i+1}}</a></li> -->
@@ -161,7 +159,7 @@
                         font-size: 1em;
                         font-weight: lighter;
                       "
-                      >Cap {{ i + 1 }}</b-badge
+                      >Cap</b-badge
                     >
                     <b-alert show class="rounded-0 my-1" variant="success">
                       <p>Revisa el capitulo</p>
@@ -170,7 +168,7 @@
                           name: 'Episodio',
                           pagina: 1,
                           params: {
-                            apis: episodio,
+                            apis: '',
                           },
                         }"
                         variant="outline-dark"
@@ -195,7 +193,8 @@
           </b-card>
         </b-card>
       </div>
-
+ 
+ <!-- Revisa más... -->
       <div
         class="mt-4 mx-auto"
         style="
@@ -226,24 +225,65 @@
             ></span>
           </h2>
         </vue-typed-js>
-        <div class="flex-column justify-content-center px-2">
-          <b-link
-            class="text-center text-light bg-secondary my-2 p-2 d-block rounded-pill"
+        <div class="flex-column justify-content-center p-0 m-0" style="font-size: .8em">
+          <b-alert show variant="primary">
+            <h5>Home</h5>
+            <p>Información del sitio y sus secciones</p>
+            <b-link
+            class="text-center text-danger border border-danger m-0 p-1 d-block"
             :to="{ name: 'Home' }"
-            ><i>Inicio</i></b-link
-          >
-          <b-link
-            class="text-center text-light bg-secondary my-2 p-2 d-block rounded-pill"
+            ><i>ver más...</i></b-link>
+          </b-alert>
+          <b-alert show variant="primary">
+            <h5>Episodios</h5>
+            <p>Encuentra información de los episodios</p>
+            <b-link
+            class="text-center text-danger border border-danger m-0 p-1 d-block"
             :to="{ name: 'Episodios' }"
-            ><i>Episodios</i></b-link
-          >
-          <b-link
-            class="text-center text-light bg-secondary my-2 p-2 d-block rounded-pill"
+            ><i>ver más...</i></b-link>
+          </b-alert>
+          <b-alert show variant="primary">
+            <h5>Ubicaciones</h5>
+            <p>Las ubicaciones y origenes de los personajes</p>
+            <b-link
+            class="text-center text-danger border border-danger m-0 p-1 d-block"
             :to="{ name: 'Ubicaciones' }"
-            ><i>Ubicaciones</i></b-link
-          >
+            ><i>ver más...</i></b-link>
+          </b-alert>
         </div>
         <br />
+      </div>
+  <!-- Mensajes del sitio -->
+      <div 
+      class="d-none text-center border-left overflow-auto"
+      style="min-width: 200px;
+            max-width: 25%;
+            max-height: 400px">
+        <br><br>
+        <div 
+        class="mt-2">
+          <h4 class="bg-warning border m-0">Comentarios</h4>
+          <b-alert show variant="success" class="p-1 mx-1 mb-1">
+            <h5 class="m-0">Nombre</h5>
+            <small class="" style="font-size: .7em">Correo</small>
+            <p class="my-2" style="font-size:.85em">Mensaje del usuario Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore accusamus debitis similique.</p>
+            <hr class="m-0">
+            <div class="d-flex justify-content-between px-2">
+              <p class="m-0"><small>12/03/2021</small></p>
+              <p class="m-0"><small>--:-- hrs</small></p>
+            </div>
+          </b-alert>
+          <b-alert show variant="success" class="p-1 mx-1 mb-1">
+            <h5 class="m-0">Nombre</h5>
+            <small class="" style="font-size: .7em">Correo</small>
+            <p class="my-2" style="font-size:.85em">Mensaje del usuario Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore accusamus debitis similique.</p>
+            <hr class="m-0">
+            <div class="d-flex justify-content-between px-2">
+              <p class="m-0"><small>12/03/2021</small></p>
+              <p class="m-0"><small>--:-- hrs</small></p>
+            </div>
+          </b-alert>
+        </div>
       </div>
     </div>
   </div>
@@ -264,7 +304,6 @@ export default {
       urlEpisodios: "",
       personajes: [],
       ubicaciones: [],
-      episodios: [],
       capitulos: [],
       error: "",
     };
@@ -278,61 +317,54 @@ export default {
           .getData()
           .then((resp) => resp.json())
           .then((response) => {
-            // console.log(response);
             this.urlPersonajes = response.characters;
             this.urlUbicaciones = response.locations;
-            // this.$store.state.ubicaciones = return response.locations;
             this.urlEpisodios = response.episodes;
-            // this.$store.state.episodios = return response.episodes;
-            // console.log(this.urlPersonajes);
-            // console.log(this.urlUbicaciones);
-            // console.log(this.urlEpisodios);
           })
           .then(() => {
             return fetch(this.urlPersonajes);
-            // console.log(pjs);
           })
           .then((data) => data.json())
           .then((info) => {
-            // console.log(info.results)
             this.personajes = info.results;
-            // this.$store.state.personajes = info.results;
-            // console.log(this.$store.state.personajes);
+            this.$store.state.carga = false;
           })
           .then(() => {
-            // console.log(this.personajes[0].episode)
-            // console.log(this.episodios)
             for (let i = 0; i < this.personajes.length; i++) {
-              // console.log(this.personajes[i]);
-              // this.episodios.push({id:''});
-              this.episodios.push({ id: "", capitulos: [] });
-              this.episodios[i].capitulos.push(this.personajes[i].episode);
-              // console.log(this.episodios[i].capitulos[0]);
-
-              for (
-                let index = 0;
-                index < this.episodios[i].capitulos[0].length;
-                index++
-              ) {
-                console.log(this.episodios[i].capitulos[0][i]);
-              }
+              this.capitulos.push({personaje: this.personajes[i].name, episodios:[]});
+              // console.log(this.personajes[i].name)
+              // if(this.capitulos.personaje == this.personajes[i].name){
+              //   for (let index = 0; index < this.personajes[index].episode.length; index++) {
+              //     console.log(this.personajes[index].episode) 
+              //     console.log('hola ' + i + ' ' + index )
+              //     this.capitulos[i].episodios.push({id: '', episodio: ''})
+              //   }
+              // }
+              this.personajes[i].episode.forEach(element => {
+                let uid = element.split('/').pop();
+                this.capitulos[i].episodios.push({id: uid, episodio: element});
+                // this.capitulos[i].episodios.id.push(element.split('/').pop())
+                // console.log(this.capitulos)
+              });
+              // console.log('uid '+ uid)
+              // console.log(this.capitulos[i].episodios)
             }
-            console.log(this.episodios);
-            // console.log(this.personajes[0].episode)
-            this.$store.state.carga = false;
+            // console.log(this.personajes)
+            console.log(this.capitulos)
+            console.log(this.personajes[0].episode.length)
           })
           .catch((error) => {
             console.log(error);
             return (this.error = error);
           });
-      }, 3000);
+      }, 2000);
     },
 
     resizeWindow() {
       this.$store.state.window.width = window.innerWidth;
-      console.log("Ancho: " + this.$store.state.window.width);
       this.$store.state.window.height = window.innerHeight;
-      console.log("Largo: " + this.$store.state.window.height);
+      // console.log("Ancho: " + this.$store.state.window.width);
+      // console.log("Largo: " + this.$store.state.window.height);
     },
   },
   mounted() {
@@ -348,11 +380,15 @@ export default {
 
 <style lang="sass" scoped>
 #botonGroup
-    max-height: 500px
-    overflow: hidden
+  max-height: 500px
+  overflow: hidden
 
 .largo-max
-    max-height: 99.8vh
+  max-height: 99.8vh
+
+.largo-80
+  max-height: 80vh  
+
 .mw-50
-    max-width: 50%
+  max-width: 50%
 </style>

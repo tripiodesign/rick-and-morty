@@ -2,7 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-
+import "./assets/img/not-found.svg"
+// import firebase from "./firebase/init";
+// Vue.use(firebase)
 // Librerias de BootstrapVue
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";

@@ -1,6 +1,7 @@
 <template>
   <div id="home" class="" style="background-color: #e9ecef">
-    <div v-if="$store.state.carga == true"
+    <div
+      v-if="$store.state.carga == true"
       style="height: 100vh; width: 100vw; z-index: 12000"
       class="bg-dark d-flex justify-content-center align-items-center position-fixed"
     >
@@ -77,7 +78,7 @@
           header="¡Bienvenidos a mi APP!"
           header-level="4"
           lead-html="<p style='font-size: .85em;'>Proyecto realizado con VueJS & Bootstrap-Vue</p>"
-          class="rounded-0 m-0"
+          class="rounded-0 m-0 pb-1"
         >
           <br />
           <div class="d-sm-flex justify-content-between">
@@ -95,23 +96,23 @@
           </div>
           <br />
           <div class="d-sm-flex justify-content-around">
-            <b-button
+            <b-button pill
               variant="outline-success"
-              class=" my-3 d-block mx-auto mx-sm-1"
+              class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
               style="width: 300px; max-width: 100%"
-              :to="{ name: 'Personajes' }"
+              :to="{ name: 'Personajes', params: { api: this.apiCharacters } }"
               >GO Personajes</b-button
             >
-            <b-button
+            <b-button pill
               variant="outline-success"
-              class=" my-3 d-block mx-auto mx-sm-1"
+              class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
               style="width: 300px; max-width: 100%"
               :to="{ name: 'Ubicaciones' }"
               >GO Ubicaciones</b-button
             >
-            <b-button
+            <b-button pill
               variant="outline-success"
-              class=" my-3 d-block mx-auto mx-sm-1"
+              class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
               style="width: 300px; max-width: 100%"
               :to="{ name: 'Episodios' }"
               >GO Episodios</b-button
@@ -119,50 +120,35 @@
           </div>
         </b-jumbotron>
       </div>
-      <a target="_blank" href="https://iconos8.es/icons/set/gambia-emoji">Gambia icon</a> icono de <a target="_blank" href="https://iconos8.es">Icons8</a>
-        <br>
-<!-- formulario crear usuario -->
+      <br />
+      <!-- formulario crear usuario -->
       <b-form @submit="createUser" class="w-75 mx-auto">
         <h5>Crea tu cuenta</h5>
-        <b-input-group 
-        prepend=""
-        v-model="usuario.nombre"
-        class="my-2">
-          <b-form-input 
-          class="p-2"
-          placeholder="Nombre"></b-form-input>
+        <b-input-group prepend="" v-model="usuario.nombre" class="my-2">
+          <b-form-input class="p-2" placeholder="Nombre"></b-form-input>
         </b-input-group>
 
-        <b-input-group 
-        prepend=""
-        v-model="usuario.apellido"
-        class="my-2">
-          <b-form-input 
-          class="p-2"
-          placeholder="Apellido"></b-form-input>
+        <b-input-group prepend="" v-model="usuario.apellido" class="my-2">
+          <b-form-input class="p-2" placeholder="Apellido"></b-form-input>
         </b-input-group>
 
-        <b-input-group 
-        prepend=""
-        v-model="usuario.correo"
-        class="my-2">
-          <b-form-input 
-          class="p-2"
-          placeholder="Correo"></b-form-input>
+        <b-input-group prepend="" v-model="usuario.correo" class="my-2">
+          <b-form-input class="p-2" placeholder="Correo"></b-form-input>
         </b-input-group>
 
-        <b-input-group 
-        prepend=""
-        v-model="usuario.pass"
-        class="my-2">
-          <b-form-input 
-          class="p-2"
-          placeholder="* * * * * *"></b-form-input>
+        <b-input-group prepend="" v-model="usuario.pass" class="my-2">
+          <b-form-input class="p-2" placeholder="* * * * * *"></b-form-input>
         </b-input-group>
 
-      <b-button type="submit" variant="success" pill class="mx-auto d-block w-75">Crear cuenta</b-button>
+        <b-button
+          type="submit"
+          variant="success"
+          pill
+          class="mx-auto d-block w-75"
+          >Crear cuenta</b-button
+        >
       </b-form>
-        <br>
+      <br />
       <div>
         <b-jumbotron
           class="rounded-0 py-0 pt-4"
@@ -172,7 +158,7 @@
           lead-html="<p style='font-size: .7em; text-align: center;'>Utilizada para aplicar conocimientos y experiencia previa.</p>"
         >
           <p style="font-size: 0.8em" class="text-right">
-            Realizado por <strong class="text-success">Tripio Design</strong>
+            Realizado por <strong class="text-success">Tripio</strong> <strong class="text-warning">Design</strong>
           </p>
         </b-jumbotron>
       </div>
@@ -183,17 +169,23 @@
 <script>
 import firebase from "firebase";
 import "@/firebase/init";
+import Data from "../servicios/ramapi";
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      usuario:{
-        uid: firebase.auth().currentUser ? firebase.auth().currentUser.uid : '',
-        nombre: '',
-        apellido: '',
-        correo: firebase.auth().currentUser ? firebase.auth().currentUser.email : '',
-        pass: '',
+      apiCharacters: '',
+      apiEpisodes: '',
+      apiLocations: '',
+      usuario: {
+        uid: firebase.auth().currentUser ? firebase.auth().currentUser.uid : "",
+        nombre: "",
+        apellido: "",
+        correo: firebase.auth().currentUser
+          ? firebase.auth().currentUser.email
+          : "",
+        pass: "",
       },
       database: null,
     };
@@ -205,15 +197,27 @@ export default {
         this.$store.state.carga = false;
       }, 1000);
     },
+    urls(){
+      const data = new Data();
+      data.getData()
+          .then(res => res.json())
+          .then(res => {
+            this.apiCharacters = res.characters;
+            this.apiEpisodes = res.episodes;
+            this.apiLocations = res.locations;
+            // console.log(this.apiCharacters);
+            // console.log(this.apiEpisodes);
+            // console.log(this.apiLocations);
+          })
+    },
 
-    createUser(){
-      
-    }
+    createUser() {},
   },
   mounted() {
     this.load();
+    this.urls();
   },
-}
+};
 </script>
 
 <style></style>

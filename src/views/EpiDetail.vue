@@ -10,7 +10,7 @@
     <div v-else>
       <br /><br />
       <b-card
-        v-if="this.$route.params.apis"
+        v-if="this.$route.params.api"
         bg-variant="secondary"
         class="mx-auto p-0"
         style="max-width: 500px"
@@ -106,10 +106,10 @@ export default {
   },
   methods: {
     getEpi() {
-      if (this.$route.params.apis) {
+      if (this.$route.params.api) {
         this.$store.state.carga = true;
         setTimeout(() => {
-          return fetch(this.$route.params.apis)
+          return fetch(this.$route.params.api)
             .then((resp) => {
               // console.log(resp)
               return resp.json();
@@ -120,7 +120,7 @@ export default {
               // console.log(this.capitulo);
               // this.capitulo.created = this.capitulo.created.split('');
               this.creado.push({ fecha: "" });
-              console.log(this.creado);
+              console.log("creacion" + this.creado);
               // this.creado[0]
               console.log(this.creado[0].fecha);
               for (let i = 0; i < this.capitulo.created.length; i++) {
@@ -143,7 +143,8 @@ export default {
   },
   mounted() {
     this.getEpi();
-    // console.log(this.$route.params.apis);
+    // console.log(this.$route.params.api);
+    // console.log(this.api);
   },
 };
 </script>

@@ -4,7 +4,7 @@
       <Carga />
     </div>
     <div v-else>
-      <div v-for="ubicacion in ubicaciones" :key="ubicacion.id">
+      <div v-for="(ubicacion, i) in ubicaciones" :key="ubicacion.id">
         <br />
         <div>
           <i class="fas fa-globe-americas" style="font-size: 2rem"></i>
@@ -13,8 +13,8 @@
           <p><strong>Dimension:</strong> {{ ubicacion.dimension }}</p>
           <div>
             <p><strong>Residentes:</strong></p>
-            <ul v-for="(residente, i) in residentes" :key="i">
-              <li>{{}}</li>
+            <ul v-for="(residente, index) in ubicaciones[i].residents" :key="residente">
+              <li>{{index+1}} • {{residente}}</li>
             </ul>
           </div>
         </div>
@@ -52,20 +52,26 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      }, 2000);
+      }, 1000);
     },
     showLocat(response) {
       // console.log(response);
       this.ubicaciones = response.results;
-      this.$store.state.carga = false;
-    },
-    showResidents() {
-      // muestra las ubicaciones
       for (let i = 0; i < this.ubicaciones.length; i++) {
-        this.residentes.push(this.ubicaciones[i].residents);
+        // console.log(this.ubicaciones[i]);
+        this.residentes.push({ubicacion: this.ubicaciones[i].name, locatarios:[]})
+        this.ubicaciones[i].residents.forEach(element => {
+          // console.log(element)
+          let uid = element.split("/").pop();
+          console.log(uid)
+          this.residentes[i].locatarios.push({
+            id: uid,
+            residente: element
+          })
+        })
       }
-      // muestra los residentes de las ubicaciones
-      console.log(this.residentes);
+      console.log(this.residentes)
+      this.$store.state.carga = false;
     },
   },
   mounted() {

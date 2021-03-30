@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: ()=> import ("../views/Home.vue"),
+    component: () => import("../views/Home.vue"),
   },
   // {
   //   path: "/about",
@@ -37,12 +37,12 @@ const routes = [
   {
     path: "/404",
     name: "404",
-    component: () => import("../views/404.vue")
+    component: () => import("../views/404.vue"),
   },
   {
     path: "/:catchaAll(.*)",
-    redirect: "/404"
-  }
+    redirect: "/404",
+  },
 ];
 
 const router = new VueRouter({

@@ -17,7 +17,7 @@ export default new Vuex.Store({
       width: 0,
       height: 0,
     },
-    
+
     usuarios: [],
   },
   getters: {

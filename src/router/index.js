@@ -30,9 +30,9 @@ const routes = [
     component: () => import("../views/Episodios.vue"),
   },
   {
-    path: "/epiDetail",
+    path: "/episodio",
     name: "Episodio",
-    component: () => import("../views/EpiDetail.vue"),
+    component: () => import("../views/Episodio.vue"),
   },
   {
     path: "/404",

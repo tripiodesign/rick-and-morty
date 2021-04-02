@@ -24,9 +24,8 @@ export default new Vuex.Store({
       apiNext: '',
       apiPrev: '',
       page: 1,
-      pages: 1,
+      pages: '',
       episodios: [],
-      pjsIn: [],
     },
     locatApi: {
       api: '',
@@ -41,7 +40,12 @@ export default new Vuex.Store({
       width: 0,
       height: 0,
     },
-
+    btnIco: {
+      start: '<<',
+      prev: '<',
+      next: '>',
+      end: '>>',
+    },
     usuarios: [],
   },
   getters: {

@@ -1,9 +1,7 @@
 <template>
   <div
     id="personajes"
-    class="overflow-auto"
-    :class="{fixed: width > 767 ? 'position-fixed' : ''}"
-    :style="{height: (height-57)+'px'}"
+    class="position-fixed p-0"
   > 
     <!-- Componente de carga  -->
     <div v-if="$store.state.carga == true"
@@ -13,29 +11,33 @@
       <Carga />
     </div>
     <!-- Contenido de la vista -->
-    <div v-else class="">
-      <h3 class="m-0">
-        <b-badge variant="danger" class="d-block py-2 rounded-0">
-          Personajes
-        </b-badge>
-      </h3>
-     <div class="">
+    <b-row v-else class="p-0 m-0">
+      <b-col cols="2" class="d-none d-md-block p-0">
         <!-- lista de navegacion de pjs -->
-      <CardsPj />
-     </div>
-      
-    </div>
+        <ListaPj class=""/>
+      </b-col>
+      <b-col class="overflow-auto p-0" style="max-height: 91.6vh;">
+        <h2 class="m-0">
+          <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
+            Personajes
+          </b-badge>
+        </h2>
+        <CardsPj class="" />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import Carga from "@/components/Carga";
+import ListaPj from "@/components/ListaPj";
 import CardsPj from "@/components/CardsPj";
 
 export default {
   name: "Personajes",
   components: {
     Carga,
+    ListaPj,
     CardsPj,
   },
   data() {

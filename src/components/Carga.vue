@@ -62,20 +62,17 @@
       class="fixed-bottom text-center"
       style="color: #acd; line-height: 0.3"
     >
-      <p>Proyecto Personal</p>
+      <p>Rick & Morty</p>
       <p style="font-size: 0.8em">
         by
-        <strong
-          ><em
-            ><i class="text-success">Tripio</i>
-            <i class="text-warning">Design</i></em
-          ></strong
-        >
+        <strong>
+          <em>
+            <i class="text-success">Tripio</i>
+            <i class="text-warning">Design</i>
+          </em>
+        </strong>
       </p>
     </div>
-    <p class="fixed-bottom text-center" style="color: #acd">
-      Proyecto Rick & Morty
-    </p>
   </div>
 </template>
 

@@ -1,9 +1,7 @@
 <template>
-  <div id="home" class="" style="overflow-y: auto" :style="{height: (height-57)+'px'}">
+  <div id="home" class="" style="overflow-y: auto" :style="{'min-height': (height-57)+'px'}">
     <div class="">
-      <div
-        v-if="$store.state.carga == true"
-      >
+      <div v-if="$store.state.carga == true">
         <Carga/>
       </div>
       <div v-else>
@@ -35,26 +33,29 @@
               <b-button
                 pill
                 variant="outline-success"
-                class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
-                style="width: 300px; max-width: 100%"
+                id="link1"
+                class="my-3 py-2 d-block mx-auto mx-sm-1 border-0 rounded"
+                style="width: 300px; max-width: 100%;"
                 :to="{ name: 'Personajes' }"
-                >GO Personajes</b-button
+                ><i id="btnGo1" class="" style="border-radius:50%; transition:all linear 150ms;">GO</i> Personajes</b-button
               >
               <b-button
                 pill
                 variant="outline-success"
-                class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
+                id="link2"
+                class="my-3 py-2 d-block mx-auto mx-sm-1 border-0 rounded"
                 style="width: 300px; max-width: 100%"
                 :to="{ name: 'Ubicaciones' }"
-                >GO Ubicaciones</b-button
+                ><i id="btnGo2" class="" style="border-radius:50%; transition:all linear 150ms;">GO</i> Ubicaciones</b-button
               >
               <b-button
                 pill
                 variant="outline-success"
-                class="my-3 d-block mx-auto mx-sm-1 border-0 rounded"
+                id="link3"
+                class="my-3 py-2 d-block mx-auto mx-sm-1 border-0 rounded"
                 style="width: 300px; max-width: 100%"
                 :to="{ name: 'Episodios' }"
-                >GO Episodios</b-button
+                ><i id="btnGo3" class="" style="border-radius:50%; transition:all linear 150ms;">GO</i> Episodios</b-button
               >
             </div>
           </b-jumbotron>
@@ -104,11 +105,6 @@
         </div>
       </div>
     </div>
-
-
-    <b-alert show class="bg-success">
-      <h1>Hola mundo</h1>
-    </b-alert>
 
   </div>
 </template>
@@ -180,4 +176,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+#btnGo1, #btnGo2, #btnGo3
+  padding: 7px
+
+#link1:hover #btnGo1, #link2:hover #btnGo2, #link3:hover #btnGo3
+  color: #28a745
+  background-color: black
+  transition: all linear 180ms
+
+</style>

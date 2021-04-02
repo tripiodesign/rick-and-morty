@@ -92,7 +92,7 @@
 <script>
 import Carga from "@/components/Carga";
 export default {
-  name: "EpiDetail",
+  name: "Episodio",
   components: {
     Carga,
   },

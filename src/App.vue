@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="position-fixed w-100" :style="{height: height}">
+  <div id="app">
     <Menu :class="{'d-none': this.$store.state.carga == true}" />
     <vue-page-transition name="fade">
-      <router-view/>
+      <router-view class="m-0" :style="{height: this.$store.state.window.height+'px'}"/>
     </vue-page-transition>
   </div>
 </template>

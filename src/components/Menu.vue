@@ -4,7 +4,7 @@
       toggleable="lg"
       type="dark"
       variant="dark"
-      class="border-bottom border-secondary d-lg-flex justify-content-between align-items-center"
+      class="d-lg-flex justify-content-between align-items-center"
     >
       <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
 
@@ -20,7 +20,7 @@
             ></b-nav-text
           >
         </b-navbar-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="flex-md-row justify-content-md-around align-items-md-center">
           <b-nav-item
             :to="{ name: 'Home' }"
             exactActiveClass="active text-warning"

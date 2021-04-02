@@ -1,10 +1,5 @@
 <template>
     <div id="cardsEpi">
-        <h3>
-            <b-badge variant="success" class="d-block py-2 rounded-0">
-                Episodios
-            </b-badge>
-        </h3>
         <!-- Tarjetas de personajes -->
         <b-container id="cards" class="overflow-auto h-75">
             <b-card class="rounded-0" v-for="(episodio, i) in $store.state.epiApi.episodios" :key="episodio.id">
@@ -25,18 +20,6 @@
                 </b-card-body>
             </b-card>
         </b-container>
-        <hr>
-        <!-- Botones de paginacion -->
-        <b-container class="fixed-bottom d-flex justify-content-between align-items-center w-75 mx-auto">
-            <b-button class="" variant="outline-success" @click="epiPrev">
-                Anterior
-            </b-button>
-            <p>{{this.$store.state.epiApi.page}} / {{this.$store.state.epiApi.pages}}</p>
-            <b-button class="" variant="outline-success" @click="epiNext">
-                Siguiente
-            </b-button>
-        </b-container>
-
     </div> 
 </template>
 
@@ -67,40 +50,9 @@ export default {
                     this.$store.state.epiApi.apiNext = res.info.next;
                     this.$store.state.epiApi.apiPrev = res.info.prev;
                     this.$store.state.epiApi.episodios = res.results;
+                    console.log(this.$store.state.epiApi.api);
                 })
                 })
-        },
-        epiNext(){
-        if(this.$store.state.epiApi.apiNext != null){
-            this.$store.state.epiApi.api = this.$store.state.epiApi.infoApi.info.next;
-            this.$store.state.epiApi.page = this.$store.state.epiApi.page+1;
-            // console.log(this.$store.state.epiApi.api)
-            fetch(this.$store.state.epiApi.api)
-            .then(res => res.json())
-            .then(res => {
-            // console.log(res);
-            this.$store.state.epiApi.infoApi = res;
-            this.$store.state.epiApi.apiNext = res.info.next;
-            this.$store.state.epiApi.apiPrev = res.info.prev;
-            this.$store.state.epiApi.episodios = res.results;
-            })
-        }
-        },
-        epiPrev(){
-        if(this.$store.state.epiApi.apiPrev != null){
-            this.$store.state.epiApi.api = this.$store.state.epiApi.infoApi.info.prev;
-            this.$store.state.epiApi.page = this.$store.state.epiApi.page-1;
-            // console.log(this.$store.state.epiApi.api)
-            fetch(this.$store.state.epiApi.api)
-            .then(res => res.json())
-            .then(res => {
-            // console.log(res);
-            this.$store.state.epiApi.infoApi = res;
-            this.$store.state.epiApi.apiNext = res.info.next;
-            this.$store.state.epiApi.apiPrev = res.info.prev;
-            this.$store.state.epiApi.episodios = res.results;
-            })
-        }
         },
     },
     mounted() {

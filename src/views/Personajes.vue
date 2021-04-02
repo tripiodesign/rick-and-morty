@@ -16,7 +16,7 @@
         <!-- lista de navegacion de pjs -->
         <ListaPj class=""/>
       </b-col>
-      <b-col class="overflow-auto p-0" style="max-height: 91.6vh;">
+      <b-col class="overflow-auto p-0" :style="{'max-height': (this.$store.state.window.height-57)+'px'}">
         <h2 class="m-0">
           <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
             Personajes

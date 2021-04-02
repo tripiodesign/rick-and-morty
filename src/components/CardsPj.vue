@@ -11,8 +11,8 @@
         <!-- Tarjetas de personajes -->
         <b-row class="m-0 p-0">
             <!-- Tarjetas de personajes -->
-            <b-col :id="'pj'+personaje.id" v-for="(personaje, i) in $store.state.pjsApi.personajes" :key="personaje.id" style="" class="rounded-0 m-1 p-0">
-                <b-card style="max-width: 450px">
+            <b-col :id="'pj'+personaje.id" v-for="(personaje, i) in $store.state.pjsApi.personajes" :key="personaje.id" style="" class="m-1 p-0">
+                <b-card class="mx-auto" style="; max-width: 100%">
                     <img :src="personaje.image" alt="" class="mx-auto my-2 d-block w-75 rounded-circle">
                     <!-- Informacion del personaje -->
                     <b-card-header class="p-0 border-0">

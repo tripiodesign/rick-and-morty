@@ -33,6 +33,9 @@ import Carga from "@/components/Carga";
 import ListaPj from "@/components/ListaPj";
 import CardsPj from "@/components/CardsPj";
 
+import Data from "../servicios/ramapi";
+let data = new Data();
+
 export default {
   name: "Personajes",
   components: {
@@ -61,11 +64,36 @@ export default {
         this.$store.state.carga = false;
       }, 2000);
     },
+    getApi(data){
+      data.getData()
+      .then(res => res.json())
+      .then(res => {
+          // console.log(res);
+          this.$store.state.pjsApi.api = res.characters
+      })
+      .then(() => {
+          // console.log(this.$store.state.pjsApi.api);
+          fetch(this.$store.state.pjsApi.api)
+          .then(res => res.json())
+          .then(res =>{
+              // console.log(res);
+              this.$store.state.pjsApi.infoApi = res;
+              this.$store.state.pjsApi.pages = res.info.pages;
+              this.$store.state.pjsApi.apiNext = res.info.next;
+              this.$store.state.pjsApi.apiPrev = res.info.prev;
+              this.$store.state.pjsApi.personajes = res.results;
+          })
+      })
+      .then(()=>{
+          // console.log(this.$store.state.pjsApi.personajes);
+      })
+    },
   },
   mounted() {
-    this.load();
     window.addEventListener("resize", this.resizeWindow);
     this.resizeWindow();
+    this.getApi(data);
+    this.load();
     // Calcular distandcia margen - elemento //
     // console.log('Distancia: '+document.getElementById('personajes').getBoundingClientRect().top);
   },

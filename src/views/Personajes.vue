@@ -12,18 +12,27 @@
     </div>
     <!-- Contenido de la vista -->
     <b-row v-else class="p-0 m-0">
-      <b-col cols="2" class="d-none d-md-block p-0">
+      <b-col id="conLista" cols="3" 
+      :style="{'width': this.clistaSize.width ,'height': (this.$store.state.window.height-57)+'px'}"
+      class="d-none d-md-block p-0 m-0">
         <!-- lista de navegacion de pjs -->
         <ListaPj class=""/>
       </b-col>
-      <b-col class="overflow-auto p-0" :style="{'max-height': (this.$store.state.window.height-57)+'px'}">
-        <h2 class="m-0">
-          <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
-            Personajes
-          </b-badge>
-        </h2>
-        <CardsPj class="" />
+      <!-- columna de contenido de la vista -->
+      <b-col id="contenido" class="overflow-auto p-0 m-0 w-100"
+      :style="{'height': (this.$store.state.window.height-57)+'px'}"
+      >
+          <h2 class="m-0">
+            <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
+              Personajes
+            </b-badge>
+          </h2>
+          <!-- componente tarjetas de personaje -->
+          <CardsPj v-if="this.$store.state.change == false"/>
+          <!-- Carga de paginacion -->
+          <ChLoad v-else/>
       </b-col>
+      
     </b-row>
   </div>
 </template>
@@ -32,6 +41,7 @@
 import Carga from "@/components/Carga";
 import ListaPj from "@/components/ListaPj";
 import CardsPj from "@/components/CardsPj";
+import ChLoad from "@/components/ChLoad";
 
 import Data from "../servicios/ramapi";
 let data = new Data();
@@ -42,63 +52,84 @@ export default {
     Carga,
     ListaPj,
     CardsPj,
+    ChLoad,
   },
   data() {
     return {
       width: this.$store.state.window.width,
       height: this.$store.state.window.height,
       error: "",
+      change: false,
+      contenido:{
+        width: Number,
+        height: Number,
+      },
+      clistaSize: {
+        width: Number,
+        height: Number,
+      },
     };
   },
   methods: {
-    resizeWindow() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
+    load(){
+            this.$store.state.carga = true;
+            setTimeout(()=>{
+                this.$store.state.carga = false
+            },2000)
+        },
+        getApi(data){
+          data.getData()
+          .then(res => res.json())
+          .then(res => {
+              // console.log(res);
+              this.$store.state.pjsApi.api = res.characters
+          })
+          .then(() => {
+              // console.log(this.$store.state.pjsApi.api);
+              fetch(this.$store.state.pjsApi.api)
+              .then(res => res.json())
+              .then(res =>{
+                  // console.log(res);
+                  this.$store.state.pjsApi.infoApi = res;
+                  this.$store.state.pjsApi.pages = res.info.pages;
+                  this.$store.state.pjsApi.apiNext = res.info.next;
+                  this.$store.state.pjsApi.apiPrev = res.info.prev;
+                  this.$store.state.pjsApi.personajes = res.results;
+              })
+          })
+          .then(()=>{
+              console.log(this.$store.state.pjsApi.personajes);
+          })
+        },
+    elementSize() {
+      this.clistaSize.width = document.getElementById("conLista").clientWidth;
+      this.clistaSize.height = document.getElementById("conLista").clientHeight;
+      console.log('Width: '+this.clistaSize.width)
+      console.log('Height: '+this.clistaSize.height)
       // console.log("Ancho: " + this.width);
       // console.log("Largo: " + this.height);
     },
-    // Tiempo de pantalla de carga
-    async load() {
-      this.$store.state.carga = true;
-      setTimeout(() => {
-        this.$store.state.carga = false;
-      }, 2000);
-    },
-    getApi(data){
-      data.getData()
-      .then(res => res.json())
-      .then(res => {
-          // console.log(res);
-          this.$store.state.pjsApi.api = res.characters
-      })
-      .then(() => {
-          // console.log(this.$store.state.pjsApi.api);
-          fetch(this.$store.state.pjsApi.api)
-          .then(res => res.json())
-          .then(res =>{
-              // console.log(res);
-              this.$store.state.pjsApi.infoApi = res;
-              this.$store.state.pjsApi.pages = res.info.pages;
-              this.$store.state.pjsApi.apiNext = res.info.next;
-              this.$store.state.pjsApi.apiPrev = res.info.prev;
-              this.$store.state.pjsApi.personajes = res.results;
-          })
-      })
-      .then(()=>{
-          // console.log(this.$store.state.pjsApi.personajes);
-      })
-    },
+    // handleOrientation(event) {
+    //   var absolute = event.absolute;
+    //   var alpha    = event.alpha;
+    //   var beta     = event.beta;
+    //   var gamma    = event.gamma;
+    //   console.log('A > '+alpha+', B > '+beta+', G > '+gamma+', Abs > '+absolute);
+    //   // Do stuff with the new orientation data
+    // },
   },
   mounted() {
-    window.addEventListener("resize", this.resizeWindow);
-    this.resizeWindow();
     this.getApi(data);
     this.load();
+    window.addEventListener("resize", this.elementSize);
+    this.elementSize();
+    // window.addEventListener("deviceorientation", this.handleOrientation, true);
+
     // Calcular distandcia margen - elemento //
     // console.log('Distancia: '+document.getElementById('personajes').getBoundingClientRect().top);
   },
   destroyed() {
-    window.removeEventListener("resize", this.resizeWindow);
+    window.removeEventListener("resize", this.elementSize);
   },
 };
 </script>

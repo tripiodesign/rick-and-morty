@@ -22,28 +22,29 @@
                         :key="pj.id" role="tablist"
                         class="bg-dark flex-column p-0 border-0 rounded-0 accordion"
                         >
-                            <h6 class="m-0 py-1 px-2 text-muted bg-dark d-flex justify-content-between align-items-center" style="border-bottom: 1px solid">
-                                <b-button variant="transparent" 
+                            <h6 class="m-0 py-1 px-2 text-danger bg-dark d-flex justify-content-between align-items-center" style="border-bottom: 1px solid">
+                                <b-button 
                                 :href="'#pj'+pj.id"
-                                class="m-0 p-0 border-0 text-info text-left" 
-                                style="font-size:.7em;">
+                                variant="outline-light" 
+                                class="m-0 border-0 text-left" 
+                                style="font-size:.8em;">
                                     {{pj.id}} • {{ pj.name }}
                                 </b-button>
                                 <b-button
                                     v-b-toggle="'epis'+i"
-                                    variant="transparent"
-                                    class="m-0 p-0 border-0 text-info text-left"
-                                    style="font-size:.7em;"
+                                    variant="outline-light"
+                                    class="m-0 border-0 text-left"
+                                    style="font-size:.8em;"
                                 >
                                     <b-icon icon="chevron-down"></b-icon>
                                 </b-button>
                             </h6>
                             <b-collapse :id="'epis'+i" style="border-bottom: 1px solid">
                                 <b-list-group class="">
-                                    <b-list-group-item v-for="(epi, idc) in $store.state.pjsApi.personajes[i].episode" :key="idc">
-                                        <b-button block squared variant="outline-secondary" class="text-left border-0" style="font-size: .7em" :to="{name: 'Episodio', params: {api: epi}}"
+                                    <b-list-group-item class="p-0 bg-transparent border-0 rounded-0" v-for="(epi, idc) in $store.state.pjsApi.personajes[i].episode" :key="idc">
+                                        <b-button block squared variant="outline-danger" type="" class="text-left border-0 d-flex align-items-center justify-content-between" style="font-size: .7em" :to="{name: 'Episodio', params: {api: epi}}"
                                         >
-                                            <p>•> Capitulo: {{epi.split('/').pop('')}}</p>
+                                            <p class="m-0">•> Capitulo: {{epi.split('/').pop('')}}</p>
                                             <b-icon icon="play-circle-fill"></b-icon>
                                         </b-button>
                                     </b-list-group-item>

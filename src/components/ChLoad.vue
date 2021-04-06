@@ -1,5 +1,5 @@
 <template>
-  <div id="chLoad" style="width:">
+  <div id="chLoad" style="" class="m-auto">
       <b-iconstack font-scale="7" animation="spin" class="">
         <b-icon
             stacked icon="dot" variant="success" animation="throb" shift-h="10"

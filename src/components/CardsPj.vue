@@ -11,7 +11,7 @@
         <!-- Tarjetas de personajes -->
         <b-row class="m-0 p-0">
             <!-- Tarjetas de personajes -->
-            <b-col :id="'pj'+personaje.id" v-for="(personaje, i) in $store.state.pjsApi.personajes" :key="personaje.id" style="" class="m-md-2 bg-info p-0">
+            <b-col :id="'pj'+personaje.id" v-for="(personaje, i) in $store.state.pjsApi.personajes" :key="personaje.id" style="" class="m-md-2 p-0">
                 <b-card class="mx-auto" style="width: 400px; max-width: 100%">
                     <img :src="personaje.image" alt="" class="mx-auto my-2 d-block w-75 rounded-circle">
                     <!-- Informacion del personaje -->
@@ -39,10 +39,10 @@
                             <p class="m-0">Episodios del personaje</p>
                             <b-icon icon="collection-play-fill"></b-icon>
                         </b-button>
-                        <b-collapse :id="'box'+i" class="pt-2 overflow-auto rounded-bottom border border-top-0" style="max-height: 200px;">
+                        <b-collapse :id="'box'+i" class="py-2 overflow-auto rounded-bottom border border-top-0" style="max-height: 200px;">
                             <b-button block v-for="episodio in $store.state.pjsApi.personajes[i].episode" :key="episodio.id"
                             variant="outline-dark" pill class="d-flex w-75 mx-auto justify-content-between align-items-center text-danger"
-                            :to="{path: ''}">
+                            :to="{name: 'Episodio', params:{ api: episodio}}">
                                 <b-badge variant="transparent" class="">• Capitulo: {{episodio.split('/').pop()}} </b-badge>
                                 <b-icon icon="play-circle" class=""></b-icon>
                             </b-button>

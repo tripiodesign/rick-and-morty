@@ -11,29 +11,35 @@
       <Carga />
     </div>
     <!-- Contenido de la vista -->
-    <b-row v-else class="p-0 m-0">
-      <b-col id="conLista" cols="3" 
-      :style="{'width': this.clistaSize.width ,'height': (this.$store.state.window.height-57)+'px'}"
-      class="d-none d-md-block p-0 m-0">
-        <!-- lista de navegacion de pjs -->
-        <ListaPj class=""/>
-      </b-col>
-      <!-- columna de contenido de la vista -->
-      <b-col id="contenido" class="overflow-auto p-0 m-0 w-100"
-      :style="{'height': (this.$store.state.window.height-57)+'px'}"
-      >
-          <h2 class="m-0">
-            <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
-              Personajes
-            </b-badge>
-          </h2>
-          <!-- componente tarjetas de personaje -->
-          <CardsPj v-if="this.$store.state.change == false"/>
-          <!-- Carga de paginacion -->
-          <ChLoad v-else/>
-      </b-col>
-      
-    </b-row>
+    <div v-else>
+      <b-row v-if="this.$store.state.change == false" class="p-0 m-0">
+        <b-col id="conLista" cols="3" 
+        :style="{'width': this.clistaSize.width ,'height': (this.$store.state.window.height-57)+'px'}"
+        class="d-none d-md-block p-0 m-0">
+          <!-- lista de navegacion de pjs -->
+          <ListaPj class=""/>
+        </b-col>
+        <!-- columna de contenido de la vista -->
+        <b-col id="contenido" class="overflow-auto p-0 m-0 w-100"
+        :style="{'height': (this.$store.state.window.height-57)+'px'}"
+        >
+            <h2 class="m-0">
+              <b-badge variant="danger" class="d-block py-1 m-0 rounded-0" style="font-weight: lighter">
+                Personajes
+              </b-badge>
+            </h2>
+            <!-- componente tarjetas de personaje -->
+            <CardsPj />
+            <!-- Carga de paginacion -->
+        </b-col>
+        
+      </b-row>
+      <b-row v-else class="m-0 p-0">
+        <b-col cols="12" class="bg- d-flex" style="width: 100vw; height: 100vh">
+          <ChLoad class=" m-auto bg-dark rounded-circle"/>
+        </b-col>
+      </b-row>
+    </div>
   </div>
 </template>
 
